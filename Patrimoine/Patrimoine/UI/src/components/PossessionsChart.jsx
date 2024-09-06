@@ -1,15 +1,15 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale } from 'chart.js';
-
+import './PossessionsChart.css'; // Importation du fichier CSS
 
 ChartJS.register(Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale);
 
 function PossessionsChart({ data }) {
-const chartData = {
+  const chartData = {
     labels: data.map(item => item.libelle),
     datasets: [
-    {
+      {
         label: 'Valeur des possessions',
         data: data.map(item => item.valeur),
         fill: false,
@@ -17,42 +17,46 @@ const chartData = {
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 2,
         tension: 0.1, 
-    },
+      },
     ],
-};
+  };
 
-const options = {
+  const options = {
     responsive: true,
     plugins: {
-    legend: {
+      legend: {
         position: 'top',
-    },
-    tooltip: {
+      },
+      tooltip: {
         callbacks: {
-        label: function (tooltipItem) {
+          label: function (tooltipItem) {
             return `Valeur: ${tooltipItem.raw}`;
+          },
         },
-        },
-    },
+      },
     },
     scales: {
-    x: {
+      x: {
         title: {
-        display: true,
-        text: 'Libelle',
+          display: true,
+          text: 'Libelle',
         },
-    },
-    y: {
+      },
+      y: {
         title: {
-        display: true,
-        text: 'Valeur',
+          display: true,
+          text: 'Valeur',
         },
         beginAtZero: true,
+      },
     },
-    },
-};
+  };
 
-return <Line data={chartData} options={options} />;
+  return (
+    <div className="chart-container">
+      <Line data={chartData} options={options} />
+    </div>
+  );
 }
 
 export default PossessionsChart;

@@ -1,0 +1,15 @@
+/* Style pour le conteneur du graphique */
+.chart-container {
+    width: 100%;
+    max-width: 800px; /* Ajuste la largeur maximale du conteneur */
+    margin: 0 auto;   /* Centre le conteneur horizontalement */
+    padding: 20px;    /* Ajoute un peu de padding autour du conteneur */
+  }
+  
+  /* Style pour le graphique */
+  .chart-container canvas {
+    background-color: #ffffff; /* Fond blanc pour le graphique */
+    border: 1px solid #ddd;    /* Bordure légère autour du graphique */
+    border-radius: 8px;        /* Coins arrondis pour le graphique */
+  }
+  

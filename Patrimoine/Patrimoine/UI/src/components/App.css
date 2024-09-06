@@ -1,0 +1,30 @@
+/* Style pour la barre de navigation */
+.bg {
+    background-color: #343a40; /* Couleur de fond de la barre de navigation */
+    padding: 0.5rem 1rem;      /* Espacement autour de la barre de navigation */
+  }
+  
+  /* Style pour le texte de la marque */
+  .patrimoine {
+    color: #ffffff; /* Couleur du texte de la marque */
+    font-weight: bold; /* Texte en gras */
+    font-size: 1.5rem; /* Taille de la police */
+  }
+  
+  /* Style pour les liens de navigation */
+  .Liste, .Liste3 {
+    color: #ffffff; /* Couleur du texte des liens */
+    margin-left: 1rem; /* Espacement entre les liens */
+    text-decoration: none; /* Retire la soulignure des liens */
+  }
+  
+  .Liste:hover, .Liste3:hover {
+    color: #adb5bd; /* Couleur des liens au survol */
+  }
+  
+  /* Style pour les liens actifs */
+  .nav-link.active {
+    font-weight: bold; /* Texte en gras pour les liens actifs */
+    color: #f8f9fa; /* Couleur du texte des liens actifs */
+  }
+  

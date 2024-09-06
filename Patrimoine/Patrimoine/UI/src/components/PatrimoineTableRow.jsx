@@ -44,9 +44,13 @@ function PatrimoineTableRow({ tableRow }) {
   };
 
   // Handle Update button click
-  const handleUpdateClick = (index) => {
+  const handleUpdateClick = (index = null) => {
     setCurrentIndex(index);
-    setUpdatedRow({ ...rows[index] });
+    if (index === null) {
+      setUpdatedRow({ libelle: '', valeur: '', dateDebut: '', tauxAmortissement: '' }); // Nouvel ajout
+    } else {
+      setUpdatedRow({ ...rows[index] });
+    }
     setShowUpdateModal(true);
   };
 
@@ -56,9 +60,16 @@ function PatrimoineTableRow({ tableRow }) {
   };
 
   const handleUpdateSave = () => {
-    const newRows = [...rows];
-    newRows[currentIndex] = updatedRow;
-    setRows(newRows);
+    if (currentIndex === null) {
+      // Ajouter une nouvelle ligne si currentIndex est null (nouvel ajout)
+      const newRows = [...rows, updatedRow];
+      setRows(newRows);
+    } else {
+      // Sinon, mettre à jour la ligne existante
+      const newRows = [...rows];
+      newRows[currentIndex] = updatedRow;
+      setRows(newRows);
+    }
     setShowUpdateModal(false);
   };
 
@@ -78,7 +89,16 @@ function PatrimoineTableRow({ tableRow }) {
           <td>{row.dateDebut}</td>
           <td>{row.dateFin || 'N/A'}</td>
           <td>{row.tauxAmortissement}</td>
-          <td>{calculateValeurActuelle(row.valeur, row.tauxAmortissement, row.dateDebut).toFixed(2)}</td>
+          
+          {/* Afficher le champ d'input pour la valeur actuelle */}
+          <td>
+            <Form.Control
+              type="text"
+              value={row.valeurActuelle || calculateValeurActuelle(row.valeur, row.tauxAmortissement, row.dateDebut).toFixed(2)}
+              readOnly
+            />
+          </td>
+          
           <td>
             <Button variant="primary" size="sm" onClick={() => handleUpdateClick(index)}>Update</Button>
             <Button variant="danger" size="sm" className="ms-2" onClick={() => handleDelete(index)}>Delete</Button>
@@ -86,6 +106,8 @@ function PatrimoineTableRow({ tableRow }) {
           </td>
         </tr>
       ))}
+
+      <Button variant="success" size="sm" onClick={() => handleUpdateClick()}>Ajouter nouvelle ligne</Button>
 
       {/* FinalDate Modal */}
       <Modal show={showModal} onHide={handleCloseModal}>
@@ -115,7 +137,7 @@ function PatrimoineTableRow({ tableRow }) {
       {/* Update Modal */}
       <Modal show={showUpdateModal} onHide={() => setShowUpdateModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Update Possession</Modal.Title>
+          <Modal.Title>{currentIndex === null ? 'Ajouter une nouvelle ligne' : 'Modifier Possession'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group>
