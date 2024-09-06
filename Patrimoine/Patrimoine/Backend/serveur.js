@@ -1,5 +1,5 @@
 import express from "express";
-import { read } from "../index.js";
+import { read } from "./index.js";
 import cors from 'cors'
 var app = express();
 app.use(cors())
